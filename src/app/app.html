@@ -1,3 +1,32 @@
 <tui-root>
+  <header tuiNavigationHeader>
+    <hr />
+    <div tuiDropdownHover tuiAvatar="AI"  [tuiDropdown]="dropdown"></div>
+  </header>
+  <ng-template #dropdown>
+    <tui-data-list>
+      <div class="cabinet__button">
+        <a tuiOption [routerLink]="['/cabinet/event-list']">
+          Вакцинация
+        </a>
+        <button (click)="goCreationEventPage('vaccine')" type="button" iconEnd="@tui.circle-plus" tuiButton [size]="'l'" [appearance]="'flat'">
+        </button>
+      </div>
+      <div class="cabinet__button">
+        <a tuiOption [routerLink]="['/cabinet/event-list']">
+          Таблетки от глистов
+        </a>
+        <button (click)="goCreationEventPage('vaccine')" type="button" iconEnd="@tui.circle-plus" tuiButton [size]="'l'" [appearance]="'flat'">
+        </button>
+      </div>
+      <div class="cabinet__button">
+        <a tuiOption [routerLink]="['/cabinet/event-list']">
+          Обработка от клещей
+        </a>
+        <button (click)="goCreationEventPage('vaccine')" type="button" iconEnd="@tui.circle-plus" tuiButton [size]="'l'" [appearance]="'flat'">
+        </button>
+      </div>
+    </tui-data-list>
+  </ng-template>
   <router-outlet />
 </tui-root>
