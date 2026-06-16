@@ -1,0 +1,47 @@
+<form tuiForm="m" class="event-create">
+    <label tuiLabel>
+      Тип препарата
+      <tui-textfield tuiChevron [stringify]="typeStringify"
+      >
+        <input
+          tuiSelect
+          [formControl]="typeDrug"
+        />
+
+        <tui-data-list-wrapper
+          *tuiDropdown
+          [items]="typeDrugList"
+        />
+      </tui-textfield>
+    </label>
+
+    <tui-textfield [tuiTextfieldCleaner]="false">
+      <label tuiLabel>Имя вакцины/таблетки</label>
+      <input
+        #input
+        placeholder="Имя"
+        tuiInput
+        [formControl]="nameValue"
+      />
+
+      @if (nameValue) {
+        <button
+          tabindex="-1"
+          tuiButtonX
+          (click)="clear()"
+        >
+          Clear
+        </button>
+      }
+    </tui-textfield>
+
+  <tui-textfield>
+    <label tuiLabel> Выберите дату приема</label>
+    <input
+      tuiInputDate
+      [formControl]="dateValue"
+    />
+    <tui-calendar *tuiDropdown />
+  </tui-textfield>
+
+</form>

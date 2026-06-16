@@ -1,7 +1,7 @@
 import { CabinetPage } from './cabinet.page';
 import { Routes } from '@angular/router';
 import { EventListInformationPage } from '../../children/event-list-information/event-list-information.page';
-import { EventCreatPage } from '../../children/event-creat/event-creat.page';
+import { EventCreatePage } from '../../children/event-creat/event-create.page';
 
 export const CABINET_ROUTES : Routes = [
   {
@@ -17,6 +17,6 @@ export const CABINET_ROUTES : Routes = [
   },
   {
     path: 'event-create',
-    component: EventCreatPage
+    component: EventCreatePage
   }
 ]

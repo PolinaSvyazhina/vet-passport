@@ -5,21 +5,21 @@
   </header>
   <ng-template #dropdown>
     <tui-data-list>
-      <div class="cabinet__button">
+      <div class="app__button">
         <a tuiOption [routerLink]="['/cabinet/event-list']">
           Вакцинация
         </a>
         <button (click)="goCreationEventPage('vaccine')" type="button" iconEnd="@tui.circle-plus" tuiButton [size]="'l'" [appearance]="'flat'">
         </button>
       </div>
-      <div class="cabinet__button">
+      <div class="app__button">
         <a tuiOption [routerLink]="['/cabinet/event-list']">
           Таблетки от глистов
         </a>
         <button (click)="goCreationEventPage('vaccine')" type="button" iconEnd="@tui.circle-plus" tuiButton [size]="'l'" [appearance]="'flat'">
         </button>
       </div>
-      <div class="cabinet__button">
+      <div class="app__button">
         <a tuiOption [routerLink]="['/cabinet/event-list']">
           Обработка от клещей
         </a>
