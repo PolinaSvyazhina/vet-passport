@@ -1,9 +1,7 @@
 import {
   TuiButton,
   TuiDataListComponent,
-  TuiDropdown,
-  TuiDropdownHover,
-  TuiIcon,
+  TuiDropdown, TuiIcon,
   TuiOption,
   TuiRoot
 } from '@taiga-ui/core';
@@ -11,6 +9,8 @@ import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { TuiAvatar } from '@taiga-ui/kit';
 import { TuiHeaderComponent } from '@taiga-ui/layout';
+import { BaseEventService } from '../cabinet/services/base-event.service';
+import { EventLocalStorageService } from '../cabinet/services/event-local-storage.service';
 
 @Component({
   selector: 'app-root',
@@ -24,16 +24,18 @@ import { TuiHeaderComponent } from '@taiga-ui/layout';
     RouterLink,
     TuiButton,
     TuiRoot,
+    TuiIcon,
   ],
+  providers: [{ provide: BaseEventService, useClass: EventLocalStorageService }],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
 export class App {
   private _router: Router = inject(Router);
 
-  public goCreationEventPage(pageName: string): void {
+  public goCreationEventPage(drugType: string): void {
     this._router.navigate(['/cabinet/event-create'], {
-      queryParams: { pageName: pageName },
+      queryParams: { drugType },
     });
   }
 }

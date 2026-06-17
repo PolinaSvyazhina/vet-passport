@@ -1,0 +1,42 @@
+import { Injectable } from '@angular/core';
+import { IEvent } from '../interfaces/event.interface';
+import { BaseEventService } from './base-event.service';
+import { BehaviorSubject, Observable } from 'rxjs';
+
+@Injectable()
+export class EventLocalStorageService extends BaseEventService {
+  constructor() {
+    super();
+    console.log('EventLocalStorageService constructor');
+    this._eventList$.next(JSON.parse(localStorage.getItem('eventList')??'[]'));
+    this._eventList$
+      .subscribe({
+        next: event => localStorage.setItem('eventList', JSON.stringify(event))
+      })
+  }
+
+  private _eventList$: BehaviorSubject<IEvent[]> = new BehaviorSubject<IEvent[]>([]);
+
+  public get eventList$(): Observable<IEvent[]> {
+    return this._eventList$.asObservable();
+  }
+
+  public override addEvent(event: IEvent) {
+    this._eventList$.next([...this._eventList$.value, event]);
+  }
+  public override removeEvent(event: IEvent) {
+    const newList: IEvent[] = this._eventList$.value.filter((i) => i.id !== event.id);
+    this._eventList$.next(newList);
+  }
+  public override editEvent(event: IEvent) {
+    const list: IEvent[] = this._eventList$.value;
+    const oldEvent: number = list.findIndex(i => i.id === event.id);
+    if (oldEvent) {
+      list[oldEvent] = event;
+      this._eventList$.next(list);
+    }
+  }
+  public override getEventList(): IEvent[] {
+    return [...this._eventList$.value];
+  }
+}

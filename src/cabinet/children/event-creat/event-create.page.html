@@ -1,13 +1,12 @@
-<form tuiForm="m" class="event-create">
+<form [formGroup]="form" tuiForm="m" class="event-create">
     <label tuiLabel>
       Тип препарата
       <tui-textfield tuiChevron [stringify]="typeStringify"
       >
         <input
           tuiSelect
-          [formControl]="typeDrug"
+          [formControlName]="'typeDrug'"
         />
-
         <tui-data-list-wrapper
           *tuiDropdown
           [items]="typeDrugList"
@@ -21,10 +20,10 @@
         #input
         placeholder="Имя"
         tuiInput
-        [formControl]="nameValue"
+        [formControlName]="'nameVaccineValue'"
       />
 
-      @if (nameValue) {
+      @if (nameVaccineValue) {
         <button
           tabindex="-1"
           tuiButtonX
@@ -39,9 +38,19 @@
     <label tuiLabel> Выберите дату приема</label>
     <input
       tuiInputDate
-      [formControl]="dateValue"
+      [formControlName]="'dateAdmissionValue'"
     />
     <tui-calendar *tuiDropdown />
   </tui-textfield>
+
+  <button
+    size="m"
+    tuiButton
+    type="button"
+    (click)="submitForm()"
+    [disabled]="!form.valid"
+  >
+    Подтвердить данные
+  </button>
 
 </form>

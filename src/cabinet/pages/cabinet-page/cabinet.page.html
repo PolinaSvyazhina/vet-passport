@@ -11,11 +11,17 @@
       <th tuiTh>Тип</th>
       <th tuiTh>Имя</th>
       <th tuiTh>Дата</th>
-      <th tuiTh>Количество</th>
     </tr>
     </thead>
     <tbody tuiTbody>
+      @for (item of getEventList(); track item.id){
+        <tr>
+          <td tuiTd>{{ item.drug.name}}</td>
+          <td tuiTd>{{ item.nameVaccine }}</td>
+          <td tuiTd>{{ item.dateAdmission }}</td>
 
+        </tr>
+      }
     </tbody>
   </table>
   </body>
