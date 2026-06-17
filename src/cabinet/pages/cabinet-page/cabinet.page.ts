@@ -1,12 +1,15 @@
 import { Component, inject, OnInit, signal, Signal, WritableSignal } from '@angular/core';
 import { BaseEventService } from '../../services/base-event.service';
 import { IEvent } from '../../interfaces/event.interface';
+import {TuiTable} from '@taiga-ui/addon-table';
 
 @Component({
   templateUrl: 'cabinet.page.html',
   selector: 'cabinet-page',
   styleUrls: ['cabinet.page.scss'],
-  imports: [],
+  imports: [
+    TuiTable
+  ],
 })
 export class CabinetPage implements OnInit {
   protected getEventList: WritableSignal<IEvent[]>= signal([])

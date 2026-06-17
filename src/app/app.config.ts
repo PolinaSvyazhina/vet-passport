@@ -8,5 +8,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
-    provideTaiga()],
+    provideTaiga(),
+        provideTaiga()
+    ],
 };

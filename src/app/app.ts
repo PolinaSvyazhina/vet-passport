@@ -25,7 +25,8 @@ import { EventLocalStorageService } from '../cabinet/services/event-local-storag
     TuiButton,
     TuiRoot,
     TuiIcon,
-  ],
+      TuiRoot
+],
   providers: [{ provide: BaseEventService, useClass: EventLocalStorageService }],
   templateUrl: './app.html',
   styleUrl: './app.scss',
