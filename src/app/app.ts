@@ -1,9 +1,10 @@
 import {
   TuiButton,
   TuiDataListComponent,
-  TuiDropdown, TuiIcon,
+  TuiDropdown,
+  TuiIcon,
   TuiOption,
-  TuiRoot
+  TuiRoot,
 } from '@taiga-ui/core';
 import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
