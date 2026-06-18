@@ -23,11 +23,11 @@
         [formControlName]="'nameVaccineValue'"
       />
 
-      @if (nameVaccineValue) {
+      @if (form.controls.nameVaccineValue.value) {
         <button
           tabindex="-1"
           tuiButtonX
-          (click)="clear()"
+          (click)="clear('nameVaccineValue')"
         >
           Clear
         </button>
@@ -42,6 +42,35 @@
     />
     <tui-calendar *tuiDropdown />
   </tui-textfield>
+  <label>
+  <input
+    size="s"
+    tuiCheckbox
+    type="checkbox"
+    [formControlName]="'isShowControlHowMany'"/>
+    Напомнить через
+  </label>
+  @if (form.controls.isShowControlHowMany.value){
+    <tui-textfield [tuiTextfieldCleaner]="false">
+      <label tuiLabel>Через сколько дней принимать</label>
+      <input
+        #input
+        placeholder="Количество дней"
+        tuiInput
+        [formControlName]="'howManyTimesTake'"
+      />
+
+      @if (form.controls.howManyTimesTake.value) {
+        <button
+          tabindex="-1"
+          tuiButtonX
+          (click)="clear('howManyTimesTake')"
+        >
+          Clear
+        </button>
+      }
+    </tui-textfield>
+  }
 
   <button
     size="m"

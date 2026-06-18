@@ -5,6 +5,7 @@ export interface IEvent {
   drug: DrugList,
   nameVaccine: string,
   dateAdmission: TuiDay,
+  howManyTimesTake: string
 }
 
 export type DrugList = { type: 'ticks' | 'vaccine' | 'parasite', name: string };

@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
   TuiChevron,
@@ -7,7 +7,7 @@ import {
   TuiInputPhoneInternational,
   TuiSelectDirective
 } from '@taiga-ui/kit';
-import { TuiButton, TuiButtonX, TuiCalendar, TuiInput } from '@taiga-ui/core';
+import { TuiButton, TuiButtonX, TuiCalendar, TuiCheckbox, TuiInput } from '@taiga-ui/core';
 import { TuiForm } from '@taiga-ui/layout';
 import { TuiDay } from '@taiga-ui/cdk';
 import { DrugList, IEvent } from '../../interfaces/event.interface';
@@ -28,22 +28,20 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     TuiInputDateDirective,
     TuiCalendar,
     TuiButton,
+    TuiCheckbox,
   ],
   templateUrl: 'event-create.page.html',
   styleUrls: ['event-create.scss'],
-  providers: []
+  providers: [],
 })
 export class EventCreatePage implements OnInit {
-
-  protected nameVaccineValue = new FormControl('', Validators.required);
-  protected typeDrug = new FormControl<DrugList>({ type: 'ticks', name: 'От клещей' }, Validators.required);
-  protected dateAdmissionValue = new FormControl<TuiDay | null>( null, Validators.required);
-
   protected form = new FormGroup({
-    nameVaccineValue: this.nameVaccineValue,
-    dateAdmissionValue: this.dateAdmissionValue,
-    typeDrug: this.typeDrug
-  })
+    nameVaccineValue: new FormControl('', Validators.required),
+    dateAdmissionValue: new FormControl<TuiDay | null>(null, Validators.required),
+    typeDrug: new FormControl<DrugList>({ type: 'ticks', name: 'От клещей' }, Validators.required),
+    howManyTimesTake: new FormControl('', ),
+    isShowControlHowMany: new FormControl(false, ),
+  });
   private _datesEventsServices: BaseEventService = inject(BaseEventService);
 
   private _router: Router = inject(Router);
@@ -59,16 +57,18 @@ export class EventCreatePage implements OnInit {
 
   ngOnInit(): void {
     this._activatedRoute.queryParams
-      .pipe(
-        takeUntilDestroyed(this._destroyRef)
-      )
-      .subscribe(params => {;
-        this.mapDefaultDateAdmissionValue(params['drugType'])
-      })
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe((params) => {
+        this.mapDefaultDateAdmissionValue(params['drugType']);
+      });
   }
 
-  protected clear(): void {
-    this.nameVaccineValue.reset();
+  protected clear(control: string): void {
+    if (control === 'nameVaccineValue') {
+      this.form.controls.nameVaccineValue.reset();
+    } else {
+      this.form.controls.howManyTimesTake.reset();
+    }
   }
 
   protected typeStringify(x: DrugList) {
@@ -79,27 +79,27 @@ export class EventCreatePage implements OnInit {
     if (this.form.valid) {
       const event: IEvent = {
         id: crypto.randomUUID(),
-        drug: this.typeDrug.value!,
-        nameVaccine: this.nameVaccineValue.value!,
-        dateAdmission: this.dateAdmissionValue.value!,
+        drug: this.form.controls.typeDrug.value!,
+        nameVaccine: this.form.controls.nameVaccineValue.value!,
+        dateAdmission: this.form.controls.dateAdmissionValue.value!,
+        howManyTimesTake: this.form.controls.howManyTimesTake.value!,
       };
-      this._datesEventsServices.addEvent(event)
+      this._datesEventsServices.addEvent(event);
 
-      this._router.navigate(['cabinet'])
+      this._router.navigate(['cabinet']);
     }
   }
 
-  private mapDefaultDateAdmissionValue(drag: string): void {
-    if (drag === 'ticks') {
-      this.typeDrug.setValue(this.typeDrugList[0]);
-    }
-
-    if (drag === 'vaccine') {
-      this.typeDrug.setValue(this.typeDrugList[1]);
-    }
-
-    if (drag === 'parasite') {
-      this.typeDrug.setValue(this.typeDrugList[2]);
+  private mapDefaultDateAdmissionValue(drag: DrugList['type']): void {
+    switch (drag) {
+      case 'ticks':
+        this.form.controls.typeDrug.setValue(this.typeDrugList[0]);
+        break;
+      case 'parasite':
+        this.form.controls.typeDrug.setValue(this.typeDrugList[2]);
+        break;
+      case 'vaccine':
+        this.form.controls.typeDrug.setValue(this.typeDrugList[1]);
     }
   }
 }

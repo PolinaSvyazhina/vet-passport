@@ -1,16 +1,16 @@
-<div>
-
-  <body>
+<body class="cabinet">
   <div class="cabinet__body-header">
     Vet Passport
   </div>
-  <div>Последние события</div>
-  <table tuiTable>
+  <div class="cabinet__last-event">Последние события</div>
+  <div class="cabinet__table">
+  <table tuiTable >
     <thead>
     <tr>
       <th tuiTh>Тип</th>
       <th tuiTh>Имя</th>
       <th tuiTh>Дата</th>
+      <th tuiTh>Следующая дата приема</th>
     </tr>
     </thead>
     <tbody tuiTbody>
@@ -19,11 +19,16 @@
           <td tuiTd>{{ item.drug.name}}</td>
           <td tuiTd>{{ item.nameVaccine }}</td>
           <td tuiTd>{{ item.dateAdmission }}</td>
-
+          @if (item.howManyTimesTake){
+            <td tuiTd>{{getNextDateTake(item.dateAdmission, item.howManyTimesTake)}}</td>
+          } @else {
+            <td tuiTd>Дата не назначена</td>
+          }
         </tr>
       }
     </tbody>
   </table>
-  </body>
-</div>
+  </div>
+</body>
+
 

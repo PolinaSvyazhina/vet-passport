@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { CABINET_ROUTES } from '../cabinet/pages/cabinet-page/cabinet.page.routes';
+import { CABINET_ROUTES } from './children/cabinet/pages/cabinet-page/cabinet.page.routes';
 
 export const routes: Routes = [
   {

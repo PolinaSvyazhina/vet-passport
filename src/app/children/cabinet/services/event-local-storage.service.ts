@@ -1,14 +1,19 @@
 import { Injectable } from '@angular/core';
 import { IEvent } from '../interfaces/event.interface';
 import { BaseEventService } from './base-event.service';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
+import { TuiDay } from '@taiga-ui/cdk';
 
 @Injectable()
 export class EventLocalStorageService extends BaseEventService {
   constructor() {
     super();
     console.log('EventLocalStorageService constructor');
-    this._eventList$.next(JSON.parse(localStorage.getItem('eventList')??'[]'));
+    const eventList = (JSON.parse(localStorage.getItem('eventList') ?? '[]') as IEvent[]);
+
+    eventList.forEach((a) => a.dateAdmission = TuiDay.jsonParse(a.dateAdmission as unknown as string))
+
+    this._eventList$.next(eventList);
     this._eventList$
       .subscribe({
         next: event => localStorage.setItem('eventList', JSON.stringify(event))
@@ -18,7 +23,12 @@ export class EventLocalStorageService extends BaseEventService {
   private _eventList$: BehaviorSubject<IEvent[]> = new BehaviorSubject<IEvent[]>([]);
 
   public get eventList$(): Observable<IEvent[]> {
-    return this._eventList$.asObservable();
+    return this._eventList$
+      .pipe(
+        map((event: IEvent[]) => {
+          return event.sort((a, b) => b.dateAdmission.toUtcNativeDate().getTime() - a.dateAdmission.toUtcNativeDate().getTime())
+        })
+      );
   }
 
   public override addEvent(event: IEvent) {
