@@ -6,21 +6,21 @@
 <ng-template #dropdown>
   <tui-data-list>
     <div class="header-dropdown__button">
-      <a tuiOption [routerLink]="['/cabinet/event-list']">
+      <a tuiOption [routerLink]="['/cabinet/event-list']" [queryParams]="{ drugType:'vaccine'}">
         Вакцинация
       </a>
       <button (click)="goCreationEventPage('vaccine')" type="button" iconEnd="@tui.circle-plus" tuiButton [size]="'l'" [appearance]="'flat'">
       </button>
     </div>
     <div class="header-dropdown__button">
-      <a tuiOption [routerLink]="['/cabinet/event-list']">
+      <a tuiOption [routerLink]="['/cabinet/event-list']" [queryParams]="{ drugType:'parasite'}">
         Таблетки от глистов
       </a>
       <button (click)="goCreationEventPage('parasite')" type="button" iconEnd="@tui.circle-plus" tuiButton [size]="'l'" [appearance]="'flat'">
       </button>
     </div>
     <div class="header-dropdown__button">
-      <a tuiOption [routerLink]="['/cabinet/event-list']">
+      <a tuiOption [routerLink]="['/cabinet/event-list']" [queryParams]="{ drugType:'ticks'}">
         Обработка от клещей
       </a>
       <button (click)="goCreationEventPage('ticks')" type="button" iconEnd="@tui.circle-plus" tuiButton [size]="'l'" [appearance]="'flat'">

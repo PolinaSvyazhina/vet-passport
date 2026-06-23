@@ -3,32 +3,7 @@
     Vet Passport
   </div>
   <div class="cabinet__last-event">Последние события</div>
-  <div class="cabinet__table">
-  <table tuiTable >
-    <thead>
-    <tr>
-      <th tuiTh>Тип</th>
-      <th tuiTh>Имя</th>
-      <th tuiTh>Дата</th>
-      <th tuiTh>Следующая дата приема</th>
-    </tr>
-    </thead>
-    <tbody tuiTbody>
-      @for (item of getEventList(); track item.id){
-        <tr>
-          <td tuiTd>{{ item.drug.name}}</td>
-          <td tuiTd>{{ item.nameVaccine }}</td>
-          <td tuiTd>{{ item.dateAdmission }}</td>
-          @if (item.howManyTimesTake){
-            <td tuiTd>{{getNextDateTake(item.dateAdmission, item.howManyTimesTake)}}</td>
-          } @else {
-            <td tuiTd>Дата не назначена</td>
-          }
-        </tr>
-      }
-    </tbody>
-  </table>
-  </div>
+  <table-component [list]="getEventList()"></table-component>
 </body>
 
 
